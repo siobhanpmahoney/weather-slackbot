@@ -10,3 +10,10 @@ gem 'celluloid-io'
 gem 'bundler'
 gem 'rake'
 gem 'whenever', require: false
+
+group :test do
+  gem 'rspec'
+  gem 'rack-test'
+  gem 'vcr'
+  gem 'webmock'
+end
