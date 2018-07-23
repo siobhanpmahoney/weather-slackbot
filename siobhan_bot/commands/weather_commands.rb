@@ -3,10 +3,11 @@ require 'RestClient'
 require 'json'
 require 'config/api_keys'
 
+# "weather now" and "weather tomorrow" command definitions
+
 module SiobhanBot
   module Commands
     class WeatherCommands < SlackRubyBot::Commands::Base
-
 
       command "weather tomorrow" do |client, data, _match|
         response = api_response(tomorrow_date)
@@ -21,6 +22,8 @@ module SiobhanBot
       end
 
 
+
+      # shared helper methods refactored to facilitate testing
 
       def self.tomorrow_date
         Time.new(Time.now.year, Time.now.month, (Time.now.day + 1)).to_i

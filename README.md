@@ -20,7 +20,7 @@ require 'siobhan_bot/bot'
 require 'siobhan_bot/commands'
 
 ```
-
+ 
 Also in the root directory, is a `run.rb` file, which will be used to run the bot:
 
 ```rb
@@ -91,6 +91,7 @@ every 1.day, at: '7:30 am' do
 end
 ```
 
+
 ### Building the `weather_advisory` task
 The schedule references the `weather_advisory` task defined in `/lib/tasks/weather_advisory.rb`.  `weather_advisory` makes two calls to the Dark Sky API and then compares the data provided for the following:
 - precipitation probability
@@ -108,4 +109,4 @@ If there is not a fluctuation in either precipitation likelihood or temperature 
 Additionally, any time a task is run, the output is logged in `/logs/whenever.log` (which is listed in the `.gitignore` file due to exposure of API keys)
 
 ## Bonus Command
-`SiobhanBot` will respond to an additional bonus command: by running "umbrella?", the bot will make a call to the Dark Sky API and let you know if you need an umbrella based on the current precipitation status and/or the minutely forecast. 
+`SiobhanBot` will respond to an additional bonus command: by running "umbrella?", the bot will make a call to the Dark Sky API and let you know if you need an umbrella based on the current precipitation status and/or the minutely forecast.
