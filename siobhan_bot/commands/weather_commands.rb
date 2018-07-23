@@ -7,6 +7,7 @@ module SiobhanBot
   module Commands
     class WeatherCommands < SlackRubyBot::Commands::Base
 
+
       command "weather tomorrow" do |client, data, _match|
         response = api_response(tomorrow_date)
         client.say(text: "#{summary(response)} Expect a high of #{max_temp(response)}° at #{max_temp_time(response)} and a low of #{min_temp(response)}° at #{min_temp_time(response)}.", channel: data.channel)
