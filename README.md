@@ -110,3 +110,6 @@ Additionally, any time a task is run, the output is logged in `/logs/whenever.lo
 
 ## Bonus Command
 `SiobhanBot` will respond to an additional bonus command: by running "umbrella?", the bot will make a call to the Dark Sky API and let you know if you need an umbrella based on the current precipitation status and/or the minutely forecast.
+
+## A Note on Tests
+Please note that this repo does not include a testing suite at this time. 
