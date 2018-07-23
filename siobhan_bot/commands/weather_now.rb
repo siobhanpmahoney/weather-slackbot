@@ -8,20 +8,11 @@ module SiobhanBot
     class WeatherNow < SlackRubyBot::Commands::Base
       command "weather now" do |client, data, _match|
 
-        # response = JSON.parse(RestClient.get("https://api.darksky.net/forecast/#{DARK_SKY_API_KEY}/40.710740,-74.007032?exclude=minutely/"))
         response = api_response
         current = response["currently"]
-        # currentSummary = currentSummary(current)
-        # currentTemperature = "#{(currentSummary["temperature"]).to_i}°"
-        # currentPrecipProb = "#{(currentSummary["precipProbability"] * 100).to_i}%"
-        today = api_response["daily"]["data"][0]
-        # todayMaxTemp = today["temperatureMax"].to_i
-        # todayMaxTime = "#{Time.at(today["temperatureMaxTime"]).strftime("%l:%M %P")}"
-        # todayMinTemp = "#{(today["temperatureMin"]).to_i}°"
-        # todayMinTime = "#{Time.at(today["temperatureMinTime"]).strftime("%l:%M %P")}"
-        # todayPrecipProb = "#{(today["precipProbability"] * 100).to_i}%"
+        today = response["daily"]["data"][0]
 
-        client.say(text: "#{currentSummary(current)}, with a temperature of #{currentTemperature(current)} and a #{currentPrecipProb(current)} chance of precipiation. Today, you can expect a high of #{todayMaxTemp(today)}° at #{todayMaxTime(today)} and a low of #{todayMinTemp(today)} at #{todayMinTime(today)}.", channel: data.channel)
+        client.say(text: "#{current_summary(current)}, with a temperature of #{current_temperature(current)} and a #{current_precip_prob(current)} chance of precipiation. Today, you can expect a high of #{today_max_temp(today)}° at #{today_max_time(today)} and a low of #{today_min_temp(today)} at #{today_min_time(today)}, with a #{today_precip_prob(today)}% chance of precipitation.", channel: data.channel)
       end
 
 
@@ -30,35 +21,35 @@ module SiobhanBot
         JSON.parse(RestClient.get("https://api.darksky.net/forecast/#{DARK_SKY_API_KEY}/40.710740,-74.007032?exclude=minutely/"))
       end
 
-      def self.currentSummary(obj)
+      def self.current_summary(obj)
         obj["summary"]
       end
 
-      def self.currentTemperature(obj)
+      def self.current_temperature(obj)
         "#{(obj["temperature"]).to_i}°"
       end
 
-      def self.currentPrecipProb(obj)
+      def self.current_precip_prob(obj)
         "#{(obj["precipProbability"] * 100).to_i}%"
       end
 
-      def self.todayMaxTemp(obj)
+      def self.today_max_temp(obj)
         obj["temperatureMax"].to_i
       end
 
-      def self.todayMaxTime(obj)
+      def self.today_max_time(obj)
         "#{Time.at(obj["temperatureMaxTime"]).strftime("%l:%M %P")}"
       end
 
-      def self.todayMinTemp(obj)
+      def self.today_min_temp(obj)
         "#{(obj["temperatureMin"]).to_i}°"
       end
 
-      def self.todayMinTime(obj)
+      def self.today_min_time(obj)
         "#{Time.at(obj["temperatureMinTime"]).strftime("%l:%M %P")}"
       end
 
-      def self.todayPrecipProb(obj)
+      def self.today_precip_prob(obj)
         "#{(obj["precipProbability"] * 100).to_i}%"
       end
 
