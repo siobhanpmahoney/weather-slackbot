@@ -3,3 +3,5 @@ module SiobhanBot
   end
 
 end
+
+# Bot Class

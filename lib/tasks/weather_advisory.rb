@@ -3,12 +3,26 @@ require 'rest-client'
 require 'json'
 require_relative '../../config/api_keys'
 
+
+# daily check comparing day's forecast to that of the day before
+
 namespace :weather_advisory do
   desc "Rake task to fetch morning weather"
   task :fetch do
+
+    # today's forecast data:
+
     weather_today=JSON.parse(RestClient.get("https://api.darksky.net/forecast/#{DARK_SKY_API_KEY}/40.710740,-74.007032?exclude=minutely/"))["daily"]["data"][0]
+
+
+    #yesterday's forecast data:
+
     yesterday = Time.new(Time.now.year, Time.now.month, (Time.now.day - 1)).to_i
+
     weather_yesterday = JSON.parse(RestClient.get("https://api.darksky.net/forecast/#{DARK_SKY_API_KEY}/40.710740,-74.007032,#{yesterday}?exclude=minutely/"))["daily"]["data"][0]
+
+
+    # hash of data to compare: includes precipitation probability, temperature low, and temperature max
 
     summary = {
       precipProbability: {
@@ -31,15 +45,24 @@ namespace :weather_advisory do
       }
     }
 
+
+    # comparing yesterday and today's data: if the difference in precipiation probability or tempeature min/max is over 10% or 10° respectively, an advisory statement is added to a comparison array
+
     comparison = summary.map do |key, value|
-      if (value[:today] - value[:yesterday]).abs > 10
+      if (value[:today] - value[:yesterday]).abs >= 10
         diff = (value[:today] - value[:yesterday]).abs
         compare_term = value[:today] > value[:yesterday] ? "higher" : "lower"
         "#{value[:opening]} #{value[:today]}#{value[:units]} (#{diff}#{value[:units]} #{compare_term} than yesterday)."
+      else
+        nil
       end
-    end
+    end.compact
 
-    if !comparison.empty?
+
+    ## if the comparison array is not empty (meaning there is a weather advisory to broadcast), the update will be posted to the Siobhan-Channel
+puts comparison.length
+puts comparison
+    if comparison.length > 0
       updates = comparison.join(" ")
       advisory = "#{updates}"
       payload = JSON.generate({

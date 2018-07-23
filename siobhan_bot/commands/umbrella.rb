@@ -3,6 +3,8 @@ require 'RestClient'
 require 'json'
 require 'config/api_keys'
 
+# an additional command, which advised as to whether or not an umbrella is necessary based on the current and minutely forecast
+
 module SiobhanBot
   module Commands
     class Umbrella < SlackRubyBot::Commands::Base
