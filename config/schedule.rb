@@ -11,6 +11,7 @@ end
 
 # for testing purposes, it is helpful to run your command on a 1-minute interval
 
+
 # set :output, 'log/whenever.log'
 # every 1.minute do
 #   rake "weather_advisory:fetch"
