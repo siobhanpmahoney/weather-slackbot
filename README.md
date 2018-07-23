@@ -20,7 +20,7 @@ require 'siobhan_bot/bot'
 require 'siobhan_bot/commands'
 
 ```
-
+ 
 Also in the root directory, is a `run.rb` file, which will be used to run the bot:
 
 ```rb
