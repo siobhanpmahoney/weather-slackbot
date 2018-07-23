@@ -60,8 +60,8 @@ namespace :weather_advisory do
 
 
     ## if the comparison array is not empty (meaning there is a weather advisory to broadcast), the update will be posted to the Siobhan-Channel
-puts comparison.length
-puts comparison
+    puts comparison.length
+    puts comparison
     if comparison.length > 0
       updates = comparison.join(" ")
       advisory = "#{updates}"
@@ -70,8 +70,8 @@ puts comparison
         text: "WEATHER ADVISORY: #{advisory}",
         as_user: true,
         username: "siobhan-bot"
-      })
-      response = RestClient.post("https://slack.com/api/chat.postMessage", payload, { "Authorization": "Bearer #{SLACK_TOKEN}", "Content-Type": "application/json", "Accept-Charset": "text/plain"})
+        })
+        response = RestClient.post("https://slack.com/api/chat.postMessage", payload, { "Authorization": "Bearer #{SLACK_TOKEN}", "Content-Type": "application/json", "Accept-Charset": "text/plain"})
+      end
     end
   end
-end
